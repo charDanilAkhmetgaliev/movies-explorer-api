@@ -11,7 +11,7 @@ const { PORT = 3000 } = process.env;
 // connect to mongo data base
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
 
-// connect routes
+// connect main router
 app.use(router);
 
 // start server
