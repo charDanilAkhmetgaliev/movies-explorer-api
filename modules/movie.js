@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// create movie schema
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
@@ -54,4 +55,5 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
+// export movie schema as mongoose model
 module.exports = mongoose.model('movie', movieSchema);
