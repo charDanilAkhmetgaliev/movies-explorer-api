@@ -1,24 +1,9 @@
-// validation error
-module.exports.VALID_ERROR_NAME = 'VALID_ERROR';
-module.exports.VALID_ERROR_STATUSCODE = 400;
-module.exports.VALID_ERROR_DEF_MESSAGE = 'получены некорректные данные';
-// authorization error
-module.exports.AUTH_ERROR_NAME = 'AUTH_ERROR';
-module.exports.AUTH_ERROR_STATUSCODE = 401;
-module.exports.AUTH_ERROR_DEF_MESSAGE = 'ошибка авторизации';
-// root not found error
-module.exports.ROOT_ERROR_NAME = 'ROOT_ERROR';
-module.exports.ROOT_ERROR_STATUSCODE = 403;
-module.exports.ROOT_ERROR_DEF_MESSAGE = 'нет прав доступа';
-// object not found error
-module.exports.OBJECT_ERROR_NAME = 'OBJECT_ERROR';
-module.exports.OBJECT_ERROR_STATUSCODE = 404;
-module.exports.OBJECT_ERROR_DEF_MESSAGE = 'объект не найден';
-// duplicate object error
-module.exports.DUPLICATE_ERROR_NAME = 'DUPLICATE_ERROR';
-module.exports.DUPLICATE_ERROR_STATUSCODE = 409;
-module.exports.DUPLICATE_ERROR_DEF_MESSAGE = 'данные объект уже существует';
-// server default error
-module.exports.SERVER_ERROR_NAME = 'SERVER_ERROR';
-module.exports.SERVER_ERROR_STATUSCODE = 500;
-module.exports.SERVER_ERROR_DEF_MESSAGE = 'произошла ошибка сервера';
+// function create error config by parameters
+const createErrorConfig = (name, statusCode, message) => new Object({ NAME: name, STATUS_CODE: statusCode, DEF_MESSAGE: message });
+// error configs exports
+module.exports.VALID_ERROR_CONFIG = createErrorConfig('VALID_ERROR', 400, 'получены некорректные данные');
+module.exports.AUTH_ERROR_CONFIG = createErrorConfig('AUTH_ERROR', 401, 'ошибка авторизации');
+module.exports.ROOT_ERROR_CONFIG = createErrorConfig('ROOT_ERROR', 403, 'нет прав доступа');
+module.exports.OBJECT_ERROR_CONFIG = createErrorConfig('OBJECT_ERROR', 404, 'объект не найден');
+module.exports.DUPLICATE_ERROR_CONFIG = createErrorConfig('DUPLICATE_ERROR', 409, 'данные объект уже существует');
+module.exports.SERVER_ERROR_CONFIG = createErrorConfig('SERVER_ERROR', 500, 'произошла ошибка сервера');
