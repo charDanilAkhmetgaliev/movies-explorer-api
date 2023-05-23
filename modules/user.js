@@ -6,19 +6,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 2,
     maxlength: 30,
-    require: true
+    require: true,
   },
   email: {
     type: String,
     unique: true,
     require: true,
-    validator: URL
+    validator: URL,
   },
   password: {
     type: String,
     require: true,
-    select: false
-  }
+    select: false,
+  },
 });
 
 // function find user in schema by id

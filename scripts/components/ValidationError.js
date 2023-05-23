@@ -1,4 +1,5 @@
 const { VALID_ERROR_CONFIG } = require('../../config');
+
 class ValidationError extends Error {
   constructor(message = VALID_ERROR_CONFIG.DEF_MESSAGE) {
     super(message);

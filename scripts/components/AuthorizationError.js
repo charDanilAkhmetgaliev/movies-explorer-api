@@ -1,4 +1,5 @@
 const { AUTH_ERROR_CONFIG } = require('../../config');
+
 class AuthorizationError extends Error {
   constructor(message = AUTH_ERROR_CONFIG.DEF_MESSAGE) {
     super(message);

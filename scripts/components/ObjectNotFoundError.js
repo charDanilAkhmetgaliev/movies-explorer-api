@@ -1,4 +1,5 @@
 const { OBJECT_ERROR_CONFIG } = require('../../config');
+
 class ObjectNotFoundError extends Error {
   constructor(message = OBJECT_ERROR_CONFIG.DEF_MESSAGE) {
     super(message);

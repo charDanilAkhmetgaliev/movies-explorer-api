@@ -17,4 +17,4 @@ app.use(router);
 // start server
 app.listen(PORT, () => {
   console.log('server is working...');
-})
+});
