@@ -1,9 +1,9 @@
-const { AUTH_ERROR_NAME, AUTH_ERROR_STATUSCODE, AUTH_ERROR_DEF_MESSAGE } = require('../../config');
+const { AUTH_ERROR_CONFIG } = require('../../config');
 class AuthorizationError extends Error {
-  constructor(message = AUTH_ERROR_DEF_MESSAGE) {
+  constructor(message = AUTH_ERROR_CONFIG.DEF_MESSAGE) {
     super(message);
-    this.name = AUTH_ERROR_NAME;
-    this.statusCode = AUTH_ERROR_STATUSCODE;
+    this.name = AUTH_ERROR_CONFIG.NAME;
+    this.statusCode = AUTH_ERROR_CONFIG.STATUS_CODE;
   }
 }
 
