@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // todo: удалить временную авторизацию
 app.use((req, res, next) => {
-  req.user = 'temp-id';
+  req.user = { _id: 'temp-id' };
   next();
 });
 

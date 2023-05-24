@@ -1,4 +1,8 @@
 // ==CONTROLLERS CONFIGURATION==
+const MOVIES_CONTROL_CONFIG = {
+  SUCCESS_ADD_MOVIE_MESSAGE: 'объект успешно сохранен',
+  SUCCESS_DELETE_MOVIE_MESSAGE: 'объект успешно удален',
+};
 const USERS_CONTROL_CONFIG = {
   SUCCESS_UPDATE_MESSAGE: 'данные пользователя успешно обновлены',
 };
@@ -47,4 +51,5 @@ module.exports = {
   DUPLICATE_ERROR_CONFIG,
   SERVER_ERROR_CONFIG,
   USERS_CONTROL_CONFIG,
+  MOVIES_CONTROL_CONFIG,
 };

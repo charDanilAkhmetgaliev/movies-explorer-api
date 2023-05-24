@@ -4,14 +4,14 @@ const { errorsHandleWrapper } = require('../scripts/utils/controller');
 const { USERS_CONTROL_CONFIG } = require('../config');
 
 module.exports.getUserData = (req, res, next) => errorsHandleWrapper(
-  () => User.findUserById(req.user),
+  () => User.findUserById(req.user._id),
   res,
   next,
 );
 
 module.exports.updateUserData = (req, res, next) => errorsHandleWrapper(
   () => {
-    const user = User.findUserById(req.user);
+    const user = User.findUserById(req.user._id);
     return User.findOneAndUpdate(user, { name: req.body.name, email: req.body.email }, {
       new: true,
       runValidators: true,

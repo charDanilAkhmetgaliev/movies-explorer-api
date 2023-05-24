@@ -1,6 +1,6 @@
 // import dependencies
 const mongoose = require('mongoose');
-const { DUPLICATE_ERROR_CODE, SERVER_ERROR_CONFIG, DATA_ERROR_CONFIG } = require('../../config');
+const { DUPLICATE_ERROR_CONFIG, SERVER_ERROR_CONFIG, DATA_ERROR_CONFIG } = require('../../config');
 const DuplicateError = require('../components/DuplicateError');
 const DataError = require('../components/DataError');
 
@@ -18,7 +18,7 @@ module.exports.errorHandler = (error, res) => {
       handlerSendError(error, res);
       return;
     }
-    if (error.code === DUPLICATE_ERROR_CODE) {
+    if (error.code === DUPLICATE_ERROR_CONFIG.ERROR_CODE) {
       handlerSendError(new DuplicateError(), res);
       return;
     }
@@ -37,5 +37,7 @@ module.exports.errorHandler = (error, res) => {
     name: SERVER_ERROR_CONFIG.ERROR_NAME,
     message: SERVER_ERROR_CONFIG.DEF_MESSAGE,
     statusCode: SERVER_ERROR_CONFIG.STATUS_CODE,
+    // todo: удалить stack
+    stack: error.stack,
   }, res);
 };
