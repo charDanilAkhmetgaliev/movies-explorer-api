@@ -1,20 +1,46 @@
-// ==ERRORS==
-// duplicate error code
-module.exports.DUPLICATE_ERROR_CODE = 11000;
-module.exports.PAGE_NOT_FOUND_MESSAGE = 'страница не найдена';
-// function object by id not found
-module.exports.OBJECT_ERROR_BY_ID_MESSAGE = (id) => `объект с ID: ${id} не найден`;
-// function create error config by parameters
-const createErrorConfig = (name, statusCode, message) => ({
-  ERROR_NAME: name,
-  STATUS_CODE: statusCode,
-  DEF_MESSAGE: message,
-});
-// error configs exports
-module.exports.VALID_ERROR_CONFIG = createErrorConfig('VALID_ERROR', 400, 'данные не прошли валидацию');
-module.exports.AUTH_ERROR_CONFIG = createErrorConfig('AUTH_ERROR', 401, 'ошибка авторизации');
-module.exports.ROOT_ERROR_CONFIG = createErrorConfig('ROOT_ERROR', 403, 'нет прав доступа');
-module.exports.OBJECT_ERROR_CONFIG = createErrorConfig('OBJECT_ERROR', 404, 'объект не найден');
-module.exports.DUPLICATE_ERROR_CONFIG = createErrorConfig('DUPLICATE_ERROR', 409, 'данные объект уже существует');
-module.exports.SERVER_ERROR_CONFIG = createErrorConfig('SERVER_ERROR', 500, 'произошла ошибка сервера');
-module.exports.CAST_ERROR_CONFIG = createErrorConfig('CAST_ERROR', 400, 'получены некорректные данные');
+// ==CONTROLLERS CONFIGURATION==
+
+// ==ERRORS CONFIGURATION==
+const DATA_ERROR_CONFIG = {
+  ERROR_NAME: 'VALID_ERROR',
+  STATUS_CODE: 400,
+  DEF_MESSAGE: 'получены некорректные данные',
+};
+const AUTH_ERROR_CONFIG = {
+  ERROR_NAME: 'AUTH_ERROR',
+  STATUS_CODE: 401,
+  DEF_MESSAGE: 'ошибка авторизации',
+};
+const ROOT_ERROR_CONFIG = {
+  ERROR_NAME: 'ROOT_ERROR',
+  STATUS_CODE: 403,
+  DEF_MESSAGE: 'нет прав доступа',
+};
+const OBJECT_ERROR_CONFIG = {
+  ERROR_NAME: 'OBJECT_ERROR',
+  STATUS_CODE: 404,
+  DEF_MESSAGE: 'объект не найден',
+  PAGE_NOT_FOUND_MESSAGE: 'страница не найдена',
+  MESSAGE_BY_ID: (id) => `объект с ID: ${id} не найден`,
+};
+const DUPLICATE_ERROR_CONFIG = {
+  ERROR_NAME: 'DUPLICATE_ERROR',
+  STATUS_CODE: 409,
+  DEF_MESSAGE: 'данные объект уже существует',
+  ERROR_CODE: 11000,
+};
+const SERVER_ERROR_CONFIG = {
+  ERROR_NAME: 'SERVER_ERROR',
+  STATUS_CODE: 500,
+  DEF_MESSAGE: 'произошла ошибка сервера',
+};
+
+// constants export
+module.exports = {
+  DATA_ERROR_CONFIG,
+  AUTH_ERROR_CONFIG,
+  ROOT_ERROR_CONFIG,
+  OBJECT_ERROR_CONFIG,
+  DUPLICATE_ERROR_CONFIG,
+  SERVER_ERROR_CONFIG,
+};
