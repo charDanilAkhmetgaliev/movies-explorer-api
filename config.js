@@ -1,7 +1,9 @@
 // ==ERRORS==
 // duplicate error code
 module.exports.DUPLICATE_ERROR_CODE = 11000;
-module.exports.PAGE_NOT_FOUND_MESSGAE = 'страница не найдена';
+module.exports.PAGE_NOT_FOUND_MESSAGE = 'страница не найдена';
+// function object by id not found
+module.exports.OBJECT_ERROR_BY_ID_MESSAGE = (id) => `объект с ID: ${id} не найден`;
 // function create error config by parameters
 const createErrorConfig = (name, statusCode, message) => ({
   ERROR_NAME: name,
