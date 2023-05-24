@@ -15,9 +15,11 @@ module.exports.errorHandler = (error, res) => {
   if (error instanceof Error) {
     if (error.statusCode) {
       handlerSendError(error, res);
+      return;
     }
     if (error.code === DUPLICATE_ERROR_CODE) {
       handlerSendError(new DuplicateError(), res);
+      return;
     }
   }
   // mongoose errors handlers
@@ -27,9 +29,11 @@ module.exports.errorHandler = (error, res) => {
       message: CAST_ERROR_CONFIG.DEF_MESSAGE,
       statusCode: CAST_ERROR_CONFIG.STATUS_CODE,
     }, res);
+    return;
   }
   if (error instanceof mongoose.Error.ValidationError) {
     handlerSendError(new ValidationError(), res);
+    return;
   }
   // default server handler
   handlerSendError({
