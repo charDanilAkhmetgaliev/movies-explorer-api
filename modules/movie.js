@@ -4,54 +4,55 @@ const mongoose = require('mongoose');
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    require: true,
+    required: true,
   },
   director: {
     type: String,
-    require: true,
+    required: true,
   },
   duration: {
     type: Number,
-    require: true,
+    required: true,
   },
   year: {
     type: String,
-    require: true,
+    required: true,
   },
   description: {
     type: String,
-    require: true,
+    required: true,
   },
   image: {
     type: String,
-    require: true,
+    required: true,
     validator: URL,
   },
   trailerLink: {
     type: String,
-    require: true,
+    required: true,
     validator: URL,
   },
   thumbnail: {
     type: String,
-    require: true,
+    required: true,
     validator: URL,
   },
   owner: {
-    type: String,
-    require: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
   },
   movieId: {
-    type: String,
-    require: true,
+    type: Number,
+    required: true,
   },
   nameRU: {
     type: String,
-    require: true,
+    required: true,
   },
   nameEN: {
     type: String,
-    require: true,
+    required: true,
   },
 });
 
