@@ -1,28 +1,23 @@
 // import dependencies
 const User = require('../modules/user');
+const { errorsHandleWrapper } = require('../scripts/utils/controller');
+const { USERS_CONTROL_CONFIG } = require('../config');
 
-// GET user data route controller
-module.exports.getUserData = async (req, res, next) => {
-  try {
-    const user = await User.findUserById(req.user);
-    res.send(user);
-  } catch (error) {
-    next(error);
-  }
-};
+module.exports.getUserData = (req, res, next) => errorsHandleWrapper(
+  () => User.findUserById(req.user),
+  res,
+  next,
+);
 
-// PATCH user data route controller
-module.exports.updateUserData = async (req, res, next) => {
-  try {
-    const { name, email } = req.body;
-
-    const user = await User.findUserById(req.user);
-    const userUpdated = await User.findOneAndUpdate(user, { name, email }, {
+module.exports.updateUserData = (req, res, next) => errorsHandleWrapper(
+  () => {
+    const user = User.findUserById(req.user);
+    return User.findOneAndUpdate(user, { name: req.body.name, email: req.body.email }, {
       new: true,
       runValidators: true,
     });
-    res.send(userUpdated);
-  } catch (error) {
-    next(error);
-  }
-};
+  },
+  res,
+  next,
+  USERS_CONTROL_CONFIG.SUCCESS_UPDATE_MESSAGE,
+);

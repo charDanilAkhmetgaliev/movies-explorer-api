@@ -5,14 +5,18 @@ const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const { errorHandler } = require('../scripts/utils/error');
 const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError');
-const { PAGE_NOT_FOUND_MESSAGE } = require('../config');
+const { OBJECT_ERROR_CONFIG } = require('../config');
 
 // connect routers
 router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
 
 // not found router handler
-router.use((req, res, next) => next(new ObjectNotFoundError(PAGE_NOT_FOUND_MESSAGE)));
+router.use((
+  req,
+  res,
+  next,
+) => next(new ObjectNotFoundError(OBJECT_ERROR_CONFIG.PAGE_NOT_FOUND_MESSAGE)));
 
 // connect all errors handler
 router.use((error, req, res, next) => errorHandler(error, res, next));

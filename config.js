@@ -1,10 +1,13 @@
 // ==CONTROLLERS CONFIGURATION==
-
+const USERS_CONTROL_CONFIG = {
+  SUCCESS_UPDATE_MESSAGE: 'данные пользователя успешно обновлены',
+};
 // ==ERRORS CONFIGURATION==
 const DATA_ERROR_CONFIG = {
   ERROR_NAME: 'VALID_ERROR',
   STATUS_CODE: 400,
   DEF_MESSAGE: 'получены некорректные данные',
+  MONGO_CAST_ERROR_MESSAGE: 'ожидается другой формат данных',
 };
 const AUTH_ERROR_CONFIG = {
   ERROR_NAME: 'AUTH_ERROR',
@@ -26,7 +29,7 @@ const OBJECT_ERROR_CONFIG = {
 const DUPLICATE_ERROR_CONFIG = {
   ERROR_NAME: 'DUPLICATE_ERROR',
   STATUS_CODE: 409,
-  DEF_MESSAGE: 'данные объект уже существует',
+  DEF_MESSAGE: 'данный объект уже существует',
   ERROR_CODE: 11000,
 };
 const SERVER_ERROR_CONFIG = {
@@ -43,4 +46,5 @@ module.exports = {
   OBJECT_ERROR_CONFIG,
   DUPLICATE_ERROR_CONFIG,
   SERVER_ERROR_CONFIG,
+  USERS_CONTROL_CONFIG,
 };

@@ -1,7 +1,7 @@
 // import dependencies
 const mongoose = require('mongoose');
 const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError');
-const { OBJECT_ERROR_BY_ID_MESSAGE } = require('../config');
+const { OBJECT_ERROR_CONFIG } = require('../config');
 
 // create user schema
 const userSchema = new mongoose.Schema({
@@ -29,7 +29,7 @@ userSchema.statics.findUserById = async function findUserById(userId) {
   try {
     return await this.findById(userId);
   } catch (error) {
-    throw new ObjectNotFoundError(OBJECT_ERROR_BY_ID_MESSAGE(userId));
+    throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE_BY_ID(userId));
   }
 };
 
