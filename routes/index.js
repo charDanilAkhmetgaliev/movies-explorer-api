@@ -6,8 +6,19 @@ const moviesRouter = require('./movies');
 const { errorHandler } = require('../scripts/utils/error');
 const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError');
 const { OBJECT_ERROR_CONFIG } = require('../config');
+const { createUser, loginUser } = require('../controllers/users');
 
-// connect routers
+// handlers auth routes
+router.post('/sign-in', loginUser);
+router.post('/sign-up', createUser);
+
+// todo: удалить временную авторизацию
+router.use((req, res, next) => {
+  req.user = { _id: '646f6d6a2982772e641b5850' };
+  next();
+});
+
+// connect main routers
 router.use('/users', usersRouter);
 router.use('/movies', moviesRouter);
 

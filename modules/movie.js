@@ -56,7 +56,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+}, { versionKey: false });
 
 // custom function that delete movie by id
 movieSchema.statics.findMovieById = async function findMovieById(movieId) {

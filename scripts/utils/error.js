@@ -6,13 +6,15 @@ const DataError = require('../components/DataError');
 
 // function send response to client with error message
 const handlerSendError = (error, res) => res.status(error.statusCode)
-// todo: убрать лог ошибок
-  .send({ error: error.name, message: error.message, log: error.stack })
+// todo: убрать стак лог ошибок
+  .send({ error: error.name, message: error.message, log: (error.stack).split('\n    ') })
   .end();
 
 // function - centralized all errors handler
 module.exports.errorHandler = (error, res) => {
   // handle errors extended from root Error object
+  // todo: убрать лог
+  console.log(error.message);
   if (error instanceof Error) {
     if (error.statusCode) {
       handlerSendError(error, res);

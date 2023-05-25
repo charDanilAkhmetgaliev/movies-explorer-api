@@ -1,10 +1,18 @@
+// ==REG EXP==
+const REG_EXP_CONFIG = {
+};
+// ==PROTECT==
+const PROTECT_CONFIG = {
+  BCRYPT_ROUNDS: 10,
+};
 // ==CONTROLLERS CONFIGURATION==
 const MOVIES_CONTROL_CONFIG = {
-  SUCCESS_ADD_MOVIE_MESSAGE: 'объект успешно сохранен',
-  SUCCESS_DELETE_MOVIE_MESSAGE: 'объект успешно удален',
+  SUCCESS_ADD_MOVIE_MESSAGE: 'фильм успешно сохранен',
+  SUCCESS_DELETE_MOVIE_MESSAGE: 'фильм успешно удален',
 };
 const USERS_CONTROL_CONFIG = {
   SUCCESS_UPDATE_MESSAGE: 'данные пользователя успешно обновлены',
+  SUCCESS_SIGNUP_MESSAGE: 'пользователь успешно зарегистрирован',
 };
 // ==ERRORS CONFIGURATION==
 const DATA_ERROR_CONFIG = {
@@ -17,6 +25,7 @@ const AUTH_ERROR_CONFIG = {
   ERROR_NAME: 'AUTH_ERROR',
   STATUS_CODE: 401,
   DEF_MESSAGE: 'ошибка авторизации',
+  COMPARE_MESSAGE: 'логин или пароль не верный',
 };
 const ROOT_ERROR_CONFIG = {
   ERROR_NAME: 'ROOT_ERROR',
@@ -28,7 +37,7 @@ const OBJECT_ERROR_CONFIG = {
   STATUS_CODE: 404,
   DEF_MESSAGE: 'объект не найден',
   PAGE_NOT_FOUND_MESSAGE: 'страница не найдена',
-  MESSAGE_BY_ID: (id) => `объект с ID: ${id} не найден`,
+  MESSAGE: (key) => `объект с ключом: ${key} не найден`,
 };
 const DUPLICATE_ERROR_CONFIG = {
   ERROR_NAME: 'DUPLICATE_ERROR',
@@ -44,6 +53,8 @@ const SERVER_ERROR_CONFIG = {
 
 // constants export
 module.exports = {
+  REG_EXP_CONFIG,
+  PROTECT_CONFIG,
   DATA_ERROR_CONFIG,
   AUTH_ERROR_CONFIG,
   ROOT_ERROR_CONFIG,

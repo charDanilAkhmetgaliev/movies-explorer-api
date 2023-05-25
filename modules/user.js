@@ -1,7 +1,9 @@
 // import dependencies
 const mongoose = require('mongoose');
-const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError');
-const { OBJECT_ERROR_CONFIG } = require('../config');
+const bcrypt = require('bcryptjs');
+const AuthorizationError = require('../scripts/components/AuthorizationError');
+const { AUTH_ERROR_CONFIG, PROTECT_CONFIG } = require('../config');
+const { findDocument } = require('../scripts/utils/model');
 
 // create user schema
 const userSchema = new mongoose.Schema({
@@ -22,14 +24,36 @@ const userSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-});
+}, { versionKey: false });
 
-// function find user in schema by id
-userSchema.statics.findUserById = async function findUserById(userId) {
+// function create user by credentials
+userSchema.statics.createUserByCredentials = async function createUserByCredentials({
+  name, email, password, next,
+}) {
+  const hash = await bcrypt.hash(password, PROTECT_CONFIG.BCRYPT_ROUNDS);
+  const { _id } = await this.create({ name, email, password: hash });
+  return findDocument.call(this, _id, next);
+};
+
+// function update User by ID
+userSchema.statics.updateUserDataById = function updateUserDataById(userId, { name, email }, next) {
+  const { currentEmail } = findDocument.call(this, userId, next);
+  return this.findOneAndUpdate(
+    { currentEmail },
+    { name, email },
+    { new: true, runValidators: true },
+  );
+};
+
+// todo: дописать функцию
+userSchema.statics.loginUserByCredentials = async function loginUserByCredentials({
+  email, password,
+}, next) {
   try {
-    return await this.findById(userId);
+    const user = await findDocument.call(this, { email }, next, { password: true, byObject: true });
+    const isOwner = (await bcrypt.compare(password, user.password));
   } catch (error) {
-    throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE_BY_ID(userId));
+    throw new AuthorizationError(AUTH_ERROR_CONFIG.COMPARE_MESSAGE);
   }
 };
 
