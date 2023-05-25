@@ -1,9 +1,0 @@
-# dependencies
-/node_modules/
-
-# configs
-.idea
-.editorconfig
-
-# logs
-*.log
