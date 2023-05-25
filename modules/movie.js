@@ -1,59 +1,78 @@
 const mongoose = require('mongoose');
+const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError');
+const { OBJECT_ERROR_CONFIG } = require('../config');
 
 // create movie schema
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    require: true
+    required: true,
   },
   director: {
     type: String,
-    require: true
+    required: true,
   },
   duration: {
     type: Number,
-    require: true
+    required: true,
   },
   year: {
     type: String,
-    require: true
+    required: true,
   },
   description: {
     type: String,
-    require: true
+    required: true,
   },
   image: {
     type: String,
-    require: true,
-    validator: URL
+    required: true,
+    validator: URL,
   },
   trailerLink: {
     type: String,
-    require: true,
-    validator: URL
+    required: true,
+    validator: URL,
   },
   thumbnail: {
     type: String,
-    require: true,
-    validator: URL
+    required: true,
+    validator: URL,
   },
   owner: {
-    type: String,
-    require: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
   },
   movieId: {
-    type: String,
-    require: true,
+    type: Number,
+    required: true,
   },
   nameRU: {
     type: String,
-    require: true
+    required: true,
   },
   nameEN: {
     type: String,
-    require: true
-  }
+    required: true,
+  },
 });
+
+// custom function that delete movie by id
+movieSchema.statics.findMovieById = async function findMovieById(movieId) {
+  try {
+    return await this.findById(movieId);
+  } catch (error) {
+    throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE_BY_ID(movieId));
+  }
+};
+
+// custom function that delete movie by id
+// todo: скорректировать функцию удаления фильма
+movieSchema.statics.deleteMovieById = function deleteMovieById(movieId) {
+  const movie = this.findMovieById(movieId);
+  this.deleteOne(movie);
+};
 
 // export movie schema as mongoose model
 module.exports = mongoose.model('movie', movieSchema);
