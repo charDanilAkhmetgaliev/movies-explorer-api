@@ -3,28 +3,32 @@ const jwt = require('jsonwebtoken');
 const User = require('../modules/user');
 const { errorsHandleWrapper } = require('../scripts/utils/controller');
 const { USERS_CONTROL_CONFIG, TOKEN_CONFIG, COOKIE_CONFIG } = require('../config');
-const { findDocument } = require('../scripts/utils/model');
+const { searchDocsInDb } = require('../scripts/utils/model');
 
+// get user data GET-route /users/me controller
 module.exports.getUserData = (req, res, next) => errorsHandleWrapper(
-  () => findDocument.call(User, req.user._id),
+  () => searchDocsInDb.call(User, req.user._id),
   res,
   next,
 );
 
+// update user data PATCH-route /users/me controller
 module.exports.updateUserData = (req, res, next) => errorsHandleWrapper(
   () => User.updateUserDataById(req.user._id, req.body),
   res,
   next,
-  USERS_CONTROL_CONFIG.SUCCESS_UPDATE_MESSAGE,
+  // USERS_CONTROL_CONFIG.SUCCESS_UPDATE_MESSAGE,
 );
 
+// login user POST-route /sign-up controller
 module.exports.createUser = (req, res, next) => errorsHandleWrapper(
   () => User.createUserByCredentials(req.body),
   res,
   next,
-  USERS_CONTROL_CONFIG.SUCCESS_SIGNUP_MESSAGE,
+  // USERS_CONTROL_CONFIG.SUCCESS_SIGNUP_MESSAGE,
 );
 
+// login user POST-route /sign-in controller
 module.exports.loginUser = (req, res, next) => errorsHandleWrapper(
   () => {
     const user = User.loginUserByCredentials(req.body);
@@ -38,9 +42,10 @@ module.exports.loginUser = (req, res, next) => errorsHandleWrapper(
   },
   res,
   next,
-  USERS_CONTROL_CONFIG.SUCCESS_LOGIN_MESSAGE,
+  // USERS_CONTROL_CONFIG.SUCCESS_LOGIN_MESSAGE,
 );
 
+// logout user GET-route /sign-out controller
 module.exports.logoutUser = (req, res, next) => errorsHandleWrapper(
   () => res.cookie(COOKIE_CONFIG.NAME, '', { expires: COOKIE_CONFIG.EXPIRES_LOGOUT, httpOnly: true }),
   res,

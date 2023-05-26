@@ -6,7 +6,7 @@ module.exports.errorsHandleWrapper = async (requestHandler, res, next, message) 
   try {
     const data = await requestHandler();
     // todo: удалить логи
-    // console.log(data);
+    console.log(data);
     sendResponse(res, () => message || data);
   } catch (error) {
     next(error);

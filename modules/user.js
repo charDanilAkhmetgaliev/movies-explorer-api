@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const AuthorizationError = require('../scripts/components/AuthorizationError');
 const { AUTH_ERROR_CONFIG, PROTECT_CONFIG } = require('../config');
-const { findDocument } = require('../scripts/utils/model');
+const { searchDocsInDb } = require('../scripts/utils/model');
 
 // create user schema
 const userSchema = new mongoose.Schema({
@@ -32,12 +32,12 @@ userSchema.statics.createUserByCredentials = async function createUserByCredenti
 }) {
   const hash = await bcrypt.hash(password, PROTECT_CONFIG.BCRYPT_ROUNDS);
   const { _id } = await this.create({ name, email, password: hash });
-  return findDocument.call(this, _id);
+  return searchDocsInDb.call(this, _id);
 };
 
 // function update User by ID
-userSchema.statics.updateUserDataById = function updateUserDataById(userId, { name, email }) {
-  const { currentEmail } = findDocument.call(this, userId);
+userSchema.statics.updateUserDataById = async function updateUserDataById(userId, { name, email }) {
+  const { currentEmail } = await searchDocsInDb.call(this, userId);
   return this.findOneAndUpdate(
     { currentEmail },
     { name, email },
@@ -45,11 +45,11 @@ userSchema.statics.updateUserDataById = function updateUserDataById(userId, { na
   );
 };
 
-// todo: дописать функцию
+// function login user by credentials
 userSchema.statics.loginUserByCredentials = async function loginUserByCredentials({
   email, password,
 }) {
-  const user = await findDocument.call(this, { email }, { password: true, byObject: true });
+  const user = await searchDocsInDb.call(this, { email }, { selectProps: ['+password'] });
   const isOwner = (await bcrypt.compare(password, user.password));
   if (!isOwner) {
     throw new AuthorizationError(AUTH_ERROR_CONFIG.COMPARE_MESSAGE);

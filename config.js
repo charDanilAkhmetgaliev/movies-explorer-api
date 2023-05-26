@@ -1,5 +1,6 @@
 // ==REG EXP==
 const REG_EXP_CONFIG = {
+  ID: /^[0-9a-fA-F]{24}$/,
 };
 // ==PROTECT==
 const PROTECT_CONFIG = {
@@ -27,7 +28,7 @@ const USERS_CONTROL_CONFIG = {
 };
 // ==ERRORS CONFIGURATION==
 const DATA_ERROR_CONFIG = {
-  ERROR_NAME: 'VALID_ERROR',
+  ERROR_NAME: 'DATA_ERROR',
   STATUS_CODE: 400,
   DEF_MESSAGE: 'получены некорректные данные',
   MONGO_CAST_ERROR_MESSAGE: 'ожидается другой формат данных',

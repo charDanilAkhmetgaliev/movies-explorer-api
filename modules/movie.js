@@ -1,42 +1,41 @@
 const mongoose = require('mongoose');
-const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError');
-const { OBJECT_ERROR_CONFIG } = require('../config');
+const { searchDocsInDb } = require('../scripts/utils/model');
 
 // create movie schema
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: true,
+    // required: true,
   },
   director: {
     type: String,
-    required: true,
+    // required: true,
   },
   duration: {
     type: Number,
-    required: true,
+    // required: true,
   },
   year: {
     type: String,
-    required: true,
+    // required: true,
   },
   description: {
     type: String,
-    required: true,
+    // required: true,
   },
   image: {
     type: String,
-    required: true,
+    // required: true,
     validator: URL,
   },
   trailerLink: {
     type: String,
-    required: true,
+    // required: true,
     validator: URL,
   },
   thumbnail: {
     type: String,
-    required: true,
+    // required: true,
     validator: URL,
   },
   owner: {
@@ -46,32 +45,40 @@ const movieSchema = new mongoose.Schema({
   },
   movieId: {
     type: Number,
-    required: true,
+    // required: true,
   },
   nameRU: {
     type: String,
-    required: true,
+    // required: true,
   },
   nameEN: {
     type: String,
-    required: true,
+    // required: true,
   },
 }, { versionKey: false });
 
 // custom function that delete movie by id
-movieSchema.statics.findMovieById = async function findMovieById(movieId) {
-  try {
-    return await this.findById(movieId);
-  } catch (error) {
-    throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE_BY_ID(movieId));
-  }
+movieSchema.statics.deleteMovieById = async function deleteMovieById(movieId) {
+  const movie = await searchDocsInDb.call(this, movieId);
+  return this.deleteOne(movie);
 };
 
-// custom function that delete movie by id
-// todo: скорректировать функцию удаления фильма
-movieSchema.statics.deleteMovieById = function deleteMovieById(movieId) {
-  const movie = this.findMovieById(movieId);
-  this.deleteOne(movie);
+movieSchema.statics.createMovie = async function createMovie(props, userId) {
+  const { _id } = await this.create({
+    movieId: props.movieId,
+    thumbnail: props.thumbnail,
+    nameEN: props.nameEN,
+    nameRU: props.nameRU,
+    trailer: props.trailer,
+    image: props.image,
+    description: props.description,
+    year: props.year,
+    duration: props.duration,
+    director: props.director,
+    country: props.country,
+    owner: userId,
+  });
+  return searchDocsInDb.call(this, _id, { popProps: ['owner'] });
 };
 
 // export movie schema as mongoose model
