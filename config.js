@@ -5,6 +5,15 @@ const REG_EXP_CONFIG = {
 const PROTECT_CONFIG = {
   BCRYPT_ROUNDS: 10,
 };
+const TOKEN_CONFIG = {
+  SECRET_KEY: (process.env.NODE_ENV === 'production') ? process.env.JWT_SECRET : 'secret-key',
+  EXPIRES: '1w',
+};
+const COOKIE_CONFIG = {
+  NAME: 'jwt',
+  MAX_AGE: 3600000 * 24 * 7,
+  EXPIRES_LOGOUT: new Date(0),
+};
 // ==CONTROLLERS CONFIGURATION==
 const MOVIES_CONTROL_CONFIG = {
   SUCCESS_ADD_MOVIE_MESSAGE: 'фильм успешно сохранен',
@@ -14,6 +23,7 @@ const USERS_CONTROL_CONFIG = {
   SUCCESS_UPDATE_MESSAGE: 'данные пользователя успешно обновлены',
   SUCCESS_SIGNUP_MESSAGE: 'пользователь успешно зарегистрирован',
   SUCCESS_LOGIN_MESSAGE: 'пользователь успешно авторизован',
+  SUCCESS_LOGOUT_MESSAGE: 'пользователь успешно деавторизован',
 };
 // ==ERRORS CONFIGURATION==
 const DATA_ERROR_CONFIG = {
@@ -64,4 +74,6 @@ module.exports = {
   SERVER_ERROR_CONFIG,
   USERS_CONTROL_CONFIG,
   MOVIES_CONTROL_CONFIG,
+  TOKEN_CONFIG,
+  COOKIE_CONFIG,
 };

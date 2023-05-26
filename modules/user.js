@@ -49,12 +49,16 @@ userSchema.statics.updateUserDataById = function updateUserDataById(userId, { na
 userSchema.statics.loginUserByCredentials = async function loginUserByCredentials({
   email, password,
 }) {
-  try {
-    const user = await findDocument.call(this, { email }, { password: true, byObject: true });
-    const isOwner = (await bcrypt.compare(password, user.password));
-  } catch (error) {
+  const user = await findDocument.call(this, { email }, { password: true, byObject: true });
+  const isOwner = (await bcrypt.compare(password, user.password));
+  if (!isOwner) {
     throw new AuthorizationError(AUTH_ERROR_CONFIG.COMPARE_MESSAGE);
   }
+  return {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+  };
 };
 
 // export user schema as mongoose model
