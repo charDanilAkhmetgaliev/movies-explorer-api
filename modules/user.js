@@ -46,19 +46,19 @@ userSchema.statics.updateUserDataById = async function updateUserDataById(userId
 };
 
 // function login user by credentials
-userSchema.statics.loginUserByCredentials = async function loginUserByCredentials({
+userSchema.statics.findUserByCredentials = async function findUserByCredentials({
   email, password,
 }) {
   const user = await searchDocsInDb.call(this, { email }, { selectProps: ['+password'] });
   const isOwner = (await bcrypt.compare(password, user.password));
-  if (!isOwner) {
-    throw new AuthorizationError(AUTH_ERROR_CONFIG.COMPARE_MESSAGE);
+  if (isOwner) {
+    return {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    };
   }
-  return {
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-  };
+  throw new AuthorizationError(AUTH_ERROR_CONFIG.COMPARE_MESSAGE);
 };
 
 // export user schema as mongoose model

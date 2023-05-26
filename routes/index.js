@@ -9,8 +9,8 @@ const { OBJECT_ERROR_CONFIG } = require('../config');
 const { createUser, loginUser, logoutUser } = require('../controllers/users');
 
 // handlers auth routes
-router.post('/sign-in', loginUser);
-router.post('/sign-up', createUser);
+router.post('/signin', loginUser);
+router.post('/signup', createUser);
 
 // todo: удалить временную авторизацию
 router.use((req, res, next) => {
@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 });
 
 // handler logout route
-router.get('/sign-out', logoutUser);
+router.get('/signout', logoutUser);
 
 // connect main routers
 router.use('/users', usersRouter);

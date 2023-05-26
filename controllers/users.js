@@ -1,19 +1,19 @@
 // import dependencies
 const jwt = require('jsonwebtoken');
 const User = require('../modules/user');
-const { errorsHandleWrapper } = require('../scripts/utils/controller');
+const { responseSandler } = require('../scripts/utils/controller');
 const { USERS_CONTROL_CONFIG, TOKEN_CONFIG, COOKIE_CONFIG } = require('../config');
 const { searchDocsInDb } = require('../scripts/utils/model');
 
 // get user data GET-route /users/me controller
-module.exports.getUserData = (req, res, next) => errorsHandleWrapper(
+module.exports.getUserData = (req, res, next) => responseSandler(
   () => searchDocsInDb.call(User, req.user._id),
   res,
   next,
 );
 
 // update user data PATCH-route /users/me controller
-module.exports.updateUserData = (req, res, next) => errorsHandleWrapper(
+module.exports.updateUserData = (req, res, next) => responseSandler(
   () => User.updateUserDataById(req.user._id, req.body),
   res,
   next,
@@ -21,7 +21,7 @@ module.exports.updateUserData = (req, res, next) => errorsHandleWrapper(
 );
 
 // login user POST-route /sign-up controller
-module.exports.createUser = (req, res, next) => errorsHandleWrapper(
+module.exports.createUser = (req, res, next) => responseSandler(
   () => User.createUserByCredentials(req.body),
   res,
   next,
@@ -29,9 +29,9 @@ module.exports.createUser = (req, res, next) => errorsHandleWrapper(
 );
 
 // login user POST-route /sign-in controller
-module.exports.loginUser = (req, res, next) => errorsHandleWrapper(
+module.exports.loginUser = (req, res, next) => responseSandler(
   () => {
-    const user = User.loginUserByCredentials(req.body);
+    const user = User.findUserByCredentials(req.body);
     const token = jwt.sign(
       { _id: user._id },
       TOKEN_CONFIG.SECRET_KEY,
@@ -46,7 +46,7 @@ module.exports.loginUser = (req, res, next) => errorsHandleWrapper(
 );
 
 // logout user GET-route /sign-out controller
-module.exports.logoutUser = (req, res, next) => errorsHandleWrapper(
+module.exports.logoutUser = (req, res, next) => responseSandler(
   () => res.cookie(COOKIE_CONFIG.NAME, '', { expires: COOKIE_CONFIG.EXPIRES_LOGOUT, httpOnly: true }),
   res,
   next,

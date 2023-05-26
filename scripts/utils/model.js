@@ -28,10 +28,10 @@ async function searchDocsInDb(key, options = {}) {
     default:
       throw new DataError();
   }
-  if (!document) {
-    throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE(key));
+  if (document) {
+    return document;
   }
-  return document;
+  throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE(key));
 }
 
 module.exports = {

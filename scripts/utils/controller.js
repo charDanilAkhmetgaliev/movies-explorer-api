@@ -1,14 +1,11 @@
-// send response handler
-const sendResponse = (res, response) => res.send({ data: response() });
+const { handleErrorsWrapper } = require('./utils');
 
 // errors handler wrapper function
-module.exports.errorsHandleWrapper = async (requestHandler, res, next, message) => {
-  try {
-    const data = await requestHandler();
-    // todo: удалить логи
-    console.log(data);
-    sendResponse(res, () => message || data);
-  } catch (error) {
-    next(error);
-  }
+const responseSandler = (requestHandler, res, next, message) => handleErrorsWrapper(async () => {
+  const data = await requestHandler();
+  res.send({ data: message || data });
+}, next);
+
+module.exports = {
+  responseSandler,
 };
