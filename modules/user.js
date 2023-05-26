@@ -28,16 +28,16 @@ const userSchema = new mongoose.Schema({
 
 // function create user by credentials
 userSchema.statics.createUserByCredentials = async function createUserByCredentials({
-  name, email, password, next,
+  name, email, password,
 }) {
   const hash = await bcrypt.hash(password, PROTECT_CONFIG.BCRYPT_ROUNDS);
   const { _id } = await this.create({ name, email, password: hash });
-  return findDocument.call(this, _id, next);
+  return findDocument.call(this, _id);
 };
 
 // function update User by ID
-userSchema.statics.updateUserDataById = function updateUserDataById(userId, { name, email }, next) {
-  const { currentEmail } = findDocument.call(this, userId, next);
+userSchema.statics.updateUserDataById = function updateUserDataById(userId, { name, email }) {
+  const { currentEmail } = findDocument.call(this, userId);
   return this.findOneAndUpdate(
     { currentEmail },
     { name, email },
@@ -48,9 +48,9 @@ userSchema.statics.updateUserDataById = function updateUserDataById(userId, { na
 // todo: дописать функцию
 userSchema.statics.loginUserByCredentials = async function loginUserByCredentials({
   email, password,
-}, next) {
+}) {
   try {
-    const user = await findDocument.call(this, { email }, next, { password: true, byObject: true });
+    const user = await findDocument.call(this, { email }, { password: true, byObject: true });
     const isOwner = (await bcrypt.compare(password, user.password));
   } catch (error) {
     throw new AuthorizationError(AUTH_ERROR_CONFIG.COMPARE_MESSAGE);

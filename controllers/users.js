@@ -5,13 +5,13 @@ const { USERS_CONTROL_CONFIG } = require('../config');
 const { findDocument } = require('../scripts/utils/model');
 
 module.exports.getUserData = (req, res, next) => errorsHandleWrapper(
-  () => findDocument.call(User, req.user._id, next),
+  () => findDocument.call(User, req.user._id),
   res,
   next,
 );
 
 module.exports.updateUserData = (req, res, next) => errorsHandleWrapper(
-  () => User.updateUserDataById(req.user._id, req.body, next),
+  () => User.updateUserDataById(req.user._id, req.body),
   res,
   next,
   USERS_CONTROL_CONFIG.SUCCESS_UPDATE_MESSAGE,
@@ -25,7 +25,8 @@ module.exports.createUser = (req, res, next) => errorsHandleWrapper(
 );
 
 module.exports.loginUser = (req, res, next) => errorsHandleWrapper(
-  () => User.loginUserByCredentials(req.body, next),
+  () => User.loginUserByCredentials(req.body),
   res,
   next,
+  USERS_CONTROL_CONFIG.SUCCESS_LOGIN_MESSAGE,
 );

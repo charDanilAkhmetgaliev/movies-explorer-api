@@ -13,6 +13,7 @@ const MOVIES_CONTROL_CONFIG = {
 const USERS_CONTROL_CONFIG = {
   SUCCESS_UPDATE_MESSAGE: 'данные пользователя успешно обновлены',
   SUCCESS_SIGNUP_MESSAGE: 'пользователь успешно зарегистрирован',
+  SUCCESS_LOGIN_MESSAGE: 'пользователь успешно авторизован',
 };
 // ==ERRORS CONFIGURATION==
 const DATA_ERROR_CONFIG = {
