@@ -1,11 +1,33 @@
 const ObjectNotFoundError = require('../components/ObjectNotFoundError');
-const { OBJECT_ERROR_CONFIG } = require('../../config');
+const DataError = require('../components/DataError');
+const { OBJECT_ERROR_CONFIG, REG_EXP_CONFIG } = require('../../config');
 
-async function findDocument(key, option = {}) {
-  const { password = null, byObject = null } = option;
-  const document = byObject
-    ? await this.findOne(key).select(`${password ? '+password' : ''}`)
-    : await this.findById(key).select(`${password ? '+password' : ''}`);
+// utility merges props
+const propsMerged = (props) => `${props ? props.join(' ') : ''}`;
+
+// function find document in db by input data
+async function searchDocsInDb(key, options = {}) {
+  const { selectProps = null, popProps = null } = options;
+  let document = {};
+  switch (true) {
+    case (typeof key === 'object'):
+      document = await this.findOne(key)
+        .select(propsMerged(selectProps))
+        .populate(propsMerged(popProps));
+      break;
+    case (typeof key === 'string' && REG_EXP_CONFIG.ID.test(key)):
+      document = await this.findById(key)
+        .select(propsMerged(selectProps))
+        .populate(propsMerged(popProps));
+      break;
+    case (key === 'all'):
+      document = await this.find({})
+        .select(propsMerged(selectProps))
+        .populate(propsMerged(popProps));
+      break;
+    default:
+      throw new DataError();
+  }
   if (!document) {
     throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE(key));
   }
@@ -13,5 +35,5 @@ async function findDocument(key, option = {}) {
 }
 
 module.exports = {
-  findDocument,
+  searchDocsInDb,
 };
