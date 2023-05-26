@@ -7,13 +7,12 @@ const PROTECT_CONFIG = {
   BCRYPT_ROUNDS: 10,
 };
 const TOKEN_CONFIG = {
-  SECRET_KEY: (process.env.NODE_ENV === 'production') ? process.env.JWT_SECRET : 'secret-key',
+  SECRET_JWT: (process.env.NODE_ENV === 'production') ? process.env.JWT_SECRET : 'secret-key',
   EXPIRES: '1w',
 };
 const COOKIE_CONFIG = {
-  NAME: 'jwt',
   MAX_AGE: 3600000 * 24 * 7,
-  EXPIRES_LOGOUT: new Date(0),
+  EXPIRES_DATE: new Date(0),
 };
 // ==CONTROLLERS CONFIGURATION==
 const MOVIES_CONTROL_CONFIG = {
@@ -38,6 +37,8 @@ const AUTH_ERROR_CONFIG = {
   STATUS_CODE: 401,
   DEF_MESSAGE: 'ошибка авторизации',
   COMPARE_MESSAGE: 'логин или пароль не верный',
+  TOKEN_NOT_FOUND: 'личный токен авторизации не найден',
+  TOKEN_NOT_VALID: 'личный токен авторизации не корректный',
 };
 const ROOT_ERROR_CONFIG = {
   ERROR_NAME: 'ROOT_ERROR',

@@ -2,7 +2,9 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const router = require('./routes/index');
+const { TOKEN_CONFIG } = require('./config');
 
 // create server
 const app = express();
@@ -15,6 +17,7 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
 // connect parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(TOKEN_CONFIG.SECRET_JWT));
 
 // connect main router
 app.use(router);

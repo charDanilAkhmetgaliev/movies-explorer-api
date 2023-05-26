@@ -7,16 +7,14 @@ const { errorHandler } = require('../scripts/utils/error');
 const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError');
 const { OBJECT_ERROR_CONFIG } = require('../config');
 const { createUser, loginUser, logoutUser } = require('../controllers/users');
+const tokenVerify = require('../middlewares/tokenVerify');
 
 // handlers auth routes
 router.post('/signin', loginUser);
 router.post('/signup', createUser);
 
-// todo: удалить временную авторизацию
-router.use((req, res, next) => {
-  req.user = { _id: '646f6d6a2982772e641b5850' };
-  next();
-});
+// connect token verify
+router.use(tokenVerify);
 
 // handler logout route
 router.get('/signout', logoutUser);

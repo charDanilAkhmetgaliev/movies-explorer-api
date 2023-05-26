@@ -34,10 +34,10 @@ module.exports.loginUser = (req, res, next) => responseSandler(
     const user = User.findUserByCredentials(req.body);
     const token = jwt.sign(
       { _id: user._id },
-      TOKEN_CONFIG.SECRET_KEY,
+      TOKEN_CONFIG.SECRET_JWT,
       { expiresIn: TOKEN_CONFIG.EXPIRES },
     );
-    res.cookie(COOKIE_CONFIG.NAME, token, { maxAge: COOKIE_CONFIG.MAX_AGE, httpOnly: true });
+    res.cookie('jwt', token, { maxAge: COOKIE_CONFIG.MAX_AGE, httpOnly: true });
     return user;
   },
   res,
@@ -47,7 +47,7 @@ module.exports.loginUser = (req, res, next) => responseSandler(
 
 // logout user GET-route /sign-out controller
 module.exports.logoutUser = (req, res, next) => responseSandler(
-  () => res.cookie(COOKIE_CONFIG.NAME, '', { expires: COOKIE_CONFIG.EXPIRES_LOGOUT, httpOnly: true }),
+  () => res.cookie('jwt', '', { expires: COOKIE_CONFIG.EXPIRES_DATE, httpOnly: true }),
   res,
   next,
   USERS_CONTROL_CONFIG.SUCCESS_LOGOUT_MESSAGE,
