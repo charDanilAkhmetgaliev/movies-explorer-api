@@ -1,3 +1,4 @@
+// import dependencies
 const jwt = require('jsonwebtoken');
 const AuthorizationError = require('../scripts/components/AuthorizationError');
 const { TOKEN_CONFIG, AUTH_ERROR_CONFIG } = require('../config');

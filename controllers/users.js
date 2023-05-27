@@ -30,8 +30,8 @@ module.exports.createUser = (req, res, next) => responseSandler(
 
 // login user POST-route /sign-in controller
 module.exports.loginUser = (req, res, next) => responseSandler(
-  () => {
-    const user = User.findUserByCredentials(req.body);
+  async () => {
+    const user = await User.findUserByCredentials(req.body);
     const token = jwt.sign(
       { _id: user._id },
       TOKEN_CONFIG.SECRET_JWT,

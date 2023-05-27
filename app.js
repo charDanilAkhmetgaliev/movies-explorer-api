@@ -12,7 +12,7 @@ const app = express();
 const { PORT = 3000 } = process.env;
 
 // connect to mongo data base
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
 
 // connect parsers
 app.use(express.json());
