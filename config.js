@@ -1,14 +1,33 @@
+// ==REG EXP==
+const REG_EXP_CONFIG = {
+  ID: /^[0-9a-fA-F]{24}$/,
+};
+// ==PROTECT==
+const PROTECT_CONFIG = {
+  BCRYPT_ROUNDS: 10,
+};
+const TOKEN_CONFIG = {
+  SECRET_JWT: (process.env.NODE_ENV === 'production') ? process.env.JWT_SECRET : 'secret-key',
+  EXPIRES: '1w',
+};
+const COOKIE_CONFIG = {
+  MAX_AGE: 3600000 * 24 * 7,
+  EXPIRES_DATE: new Date(0),
+};
 // ==CONTROLLERS CONFIGURATION==
 const MOVIES_CONTROL_CONFIG = {
-  SUCCESS_ADD_MOVIE_MESSAGE: 'объект успешно сохранен',
-  SUCCESS_DELETE_MOVIE_MESSAGE: 'объект успешно удален',
+  SUCCESS_ADD_MOVIE_MESSAGE: 'фильм успешно сохранен',
+  SUCCESS_DELETE_MOVIE_MESSAGE: 'фильм успешно удален',
 };
 const USERS_CONTROL_CONFIG = {
   SUCCESS_UPDATE_MESSAGE: 'данные пользователя успешно обновлены',
+  SUCCESS_SIGNUP_MESSAGE: 'пользователь успешно зарегистрирован',
+  SUCCESS_LOGIN_MESSAGE: 'пользователь успешно авторизован',
+  SUCCESS_LOGOUT_MESSAGE: 'пользователь успешно деавторизован',
 };
 // ==ERRORS CONFIGURATION==
 const DATA_ERROR_CONFIG = {
-  ERROR_NAME: 'VALID_ERROR',
+  ERROR_NAME: 'DATA_ERROR',
   STATUS_CODE: 400,
   DEF_MESSAGE: 'получены некорректные данные',
   MONGO_CAST_ERROR_MESSAGE: 'ожидается другой формат данных',
@@ -17,6 +36,9 @@ const AUTH_ERROR_CONFIG = {
   ERROR_NAME: 'AUTH_ERROR',
   STATUS_CODE: 401,
   DEF_MESSAGE: 'ошибка авторизации',
+  COMPARE_MESSAGE: 'логин или пароль не верный',
+  TOKEN_NOT_FOUND: 'личный токен авторизации не найден',
+  TOKEN_NOT_VALID: 'личный токен авторизации не корректный',
 };
 const ROOT_ERROR_CONFIG = {
   ERROR_NAME: 'ROOT_ERROR',
@@ -28,7 +50,7 @@ const OBJECT_ERROR_CONFIG = {
   STATUS_CODE: 404,
   DEF_MESSAGE: 'объект не найден',
   PAGE_NOT_FOUND_MESSAGE: 'страница не найдена',
-  MESSAGE_BY_ID: (id) => `объект с ID: ${id} не найден`,
+  MESSAGE: (key) => `объект с ключом: ${key} не найден`,
 };
 const DUPLICATE_ERROR_CONFIG = {
   ERROR_NAME: 'DUPLICATE_ERROR',
@@ -44,6 +66,8 @@ const SERVER_ERROR_CONFIG = {
 
 // constants export
 module.exports = {
+  REG_EXP_CONFIG,
+  PROTECT_CONFIG,
   DATA_ERROR_CONFIG,
   AUTH_ERROR_CONFIG,
   ROOT_ERROR_CONFIG,
@@ -52,4 +76,6 @@ module.exports = {
   SERVER_ERROR_CONFIG,
   USERS_CONTROL_CONFIG,
   MOVIES_CONTROL_CONFIG,
+  TOKEN_CONFIG,
+  COOKIE_CONFIG,
 };
