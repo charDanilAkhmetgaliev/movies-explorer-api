@@ -1,6 +1,7 @@
 // create main route
 const router = require('express').Router();
 // import dependencies
+const { errors } = require('celebrate');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const { errorHandler } = require('../scripts/utils/error');
@@ -29,6 +30,9 @@ router.use((
   res,
   next,
 ) => next(new ObjectNotFoundError(OBJECT_ERROR_CONFIG.PAGE_NOT_FOUND_MESSAGE)));
+
+// celebrate errors handler
+router.use(errors());
 
 // connect all errors handler
 router.use((error, req, res, next) => errorHandler(error, res, next));

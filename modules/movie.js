@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { searchDocsInDb } = require('../scripts/utils/model');
 
+// todo: разкомментировать модель
 // create movie schema
 const movieSchema = new mongoose.Schema({
   country: {
