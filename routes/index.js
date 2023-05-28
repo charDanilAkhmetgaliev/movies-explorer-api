@@ -9,10 +9,11 @@ const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError')
 const { OBJECT_ERROR_CONFIG } = require('../config');
 const { createUser, loginUser, logoutUser } = require('../controllers/users');
 const tokenVerify = require('../middlewares/tokenVerify');
+const { createUserScheme } = require('../scripts/utils/clb');
 
 // handlers auth routes
 router.post('/signin', loginUser);
-router.post('/signup', createUser);
+router.post('/signup', createUserScheme, createUser);
 
 // connect token verify
 router.use(tokenVerify);
