@@ -2,7 +2,7 @@
 const { celebrate, Joi } = require('celebrate');
 const { REG_EXP_CONFIG, VALID_CONFIG } = require('../../config');
 
-// init joi's filter parameters
+// init joi's validation parameters
 const joiUnknown = (bool) => Joi.object().unknown(bool);
 const joiObject = (data) => Joi.object().keys(data);
 const stringRequired = Joi.string().required();
@@ -27,6 +27,15 @@ const createUserScheme = validScheme({
     password: regExpRequired(REG_EXP_CONFIG.PASSWORD),
   }),
 });
+
+// login user validation scheme
+const loginUserScheme = validScheme({
+  body: joiObject({
+    email: regExpRequired(REG_EXP_CONFIG.EMAIL),
+    password: regExpRequired(REG_EXP_CONFIG.PASSWORD),
+  }),
+});
+
 // update user data validation scheme
 const updateUserScheme = validScheme({
   body: joiObject({
@@ -67,4 +76,5 @@ module.exports = {
   createMovieScheme,
   deleteMovieScheme,
   createUserScheme,
+  loginUserScheme,
 };
