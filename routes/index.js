@@ -10,6 +10,10 @@ const { OBJECT_ERROR_CONFIG } = require('../config');
 const { createUser, loginUser, logoutUser } = require('../controllers/users');
 const tokenVerify = require('../middlewares/tokenVerify');
 const { createUserScheme, loginUserScheme } = require('../scripts/utils/clb');
+const { requestLogger, errorLogger } = require('../middlewares/logger');
+
+// connect request logger
+router.use(requestLogger);
 
 // handlers auth routes
 router.post('/signin', loginUserScheme, loginUser);
@@ -31,6 +35,9 @@ router.use((
   res,
   next,
 ) => next(new ObjectNotFoundError(OBJECT_ERROR_CONFIG.PAGE_NOT_FOUND_MESSAGE)));
+
+// connect errors logger
+router.use(errorLogger);
 
 // celebrate errors handler
 router.use(errors());
