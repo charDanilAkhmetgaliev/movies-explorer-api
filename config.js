@@ -11,6 +11,13 @@ const REG_EXP_CONFIG = {
   PASSWORD: /^[a-zA-Z0-9!@#$%^&*()_+<>?/.,{};':"\\|-]{8,20}$/,
 };
 // ==PROTECT==
+const CORS_CONFIG = {
+  ALLOWED_ORIGINS: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+  ],
+  ALLOWED_METHODS: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
 const PROTECT_CONFIG = {
   BCRYPT_ROUNDS: 10,
 };
@@ -23,6 +30,8 @@ const COOKIE_CONFIG = {
   EXPIRES_DATE: new Date(0),
 };
 const LIMITER_CONFIG = {
+  // windowMs: промежуток времени в течении которого разрешено получать не более max запросов(в мс)
+  // по истечению времени счетчик обнуляется
   windowMs: 15 * 60 * 1000,
   max: 200,
   standardHeaders: true,
@@ -94,4 +103,5 @@ module.exports = {
   TOKEN_CONFIG,
   COOKIE_CONFIG,
   LIMITER_CONFIG,
+  CORS_CONFIG,
 };
