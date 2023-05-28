@@ -22,6 +22,12 @@ const COOKIE_CONFIG = {
   MAX_AGE: 3600000 * 24 * 7,
   EXPIRES_DATE: new Date(0),
 };
+const LIMITER_CONFIG = {
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
+};
 // ==CONTROLLERS CONFIGURATION==
 const MOVIES_CONTROL_CONFIG = {
   SUCCESS_ADD_MOVIE_MESSAGE: 'фильм успешно сохранен',
@@ -87,4 +93,5 @@ module.exports = {
   MOVIES_CONTROL_CONFIG,
   TOKEN_CONFIG,
   COOKIE_CONFIG,
+  LIMITER_CONFIG,
 };

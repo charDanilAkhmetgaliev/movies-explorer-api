@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const router = require('./routes/index');
 const { TOKEN_CONFIG } = require('./config');
+const limiter = require('./middlewares/limiter');
 
 // create server
 const app = express();
@@ -16,7 +17,7 @@ const { PORT = 3000 } = process.env;
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
 
 // connect protect utilities
-
+app.use(limiter);
 app.use(helmet());
 
 // connect parsers
