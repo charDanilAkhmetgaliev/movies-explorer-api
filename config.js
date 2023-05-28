@@ -11,6 +11,13 @@ const REG_EXP_CONFIG = {
   PASSWORD: /^[a-zA-Z0-9!@#$%^&*()_+<>?/.,{};':"\\|-]{8,20}$/,
 };
 // ==PROTECT==
+const CORS_CONFIG = {
+  ALLOWED_ORIGINS: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+  ],
+  ALLOWED_METHODS: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+};
 const PROTECT_CONFIG = {
   BCRYPT_ROUNDS: 10,
 };
@@ -21,6 +28,14 @@ const TOKEN_CONFIG = {
 const COOKIE_CONFIG = {
   MAX_AGE: 3600000 * 24 * 7,
   EXPIRES_DATE: new Date(0),
+};
+const LIMITER_CONFIG = {
+  // windowMs: промежуток времени в течении которого разрешено получать не более max запросов(в мс)
+  // по истечению времени счетчик обнуляется
+  windowMs: 15 * 60 * 1000,
+  max: 200,
+  standardHeaders: true,
+  legacyHeaders: false,
 };
 // ==CONTROLLERS CONFIGURATION==
 const MOVIES_CONTROL_CONFIG = {
@@ -87,4 +102,6 @@ module.exports = {
   MOVIES_CONTROL_CONFIG,
   TOKEN_CONFIG,
   COOKIE_CONFIG,
+  LIMITER_CONFIG,
+  CORS_CONFIG,
 };
