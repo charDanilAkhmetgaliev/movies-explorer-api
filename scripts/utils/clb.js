@@ -40,7 +40,14 @@ const createMovieScheme = validScheme({
   }),
 });
 
+const deleteMovieScheme = validScheme({
+  params: joiObject({
+    _id: Joi.string().hex().length(24).required(),
+  }),
+});
+
 module.exports = {
   updateUserScheme,
   createMovieScheme,
+  deleteMovieScheme,
 };
