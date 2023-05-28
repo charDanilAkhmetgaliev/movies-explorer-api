@@ -1,6 +1,7 @@
 // create main route
 const router = require('express').Router();
 // import dependencies
+const { errors } = require('celebrate');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const { errorHandler } = require('../scripts/utils/error');
@@ -8,10 +9,11 @@ const ObjectNotFoundError = require('../scripts/components/ObjectNotFoundError')
 const { OBJECT_ERROR_CONFIG } = require('../config');
 const { createUser, loginUser, logoutUser } = require('../controllers/users');
 const tokenVerify = require('../middlewares/tokenVerify');
+const { createUserScheme, loginUserScheme } = require('../scripts/utils/clb');
 
 // handlers auth routes
-router.post('/signin', loginUser);
-router.post('/signup', createUser);
+router.post('/signin', loginUserScheme, loginUser);
+router.post('/signup', createUserScheme, createUser);
 
 // connect token verify
 router.use(tokenVerify);
@@ -29,6 +31,9 @@ router.use((
   res,
   next,
 ) => next(new ObjectNotFoundError(OBJECT_ERROR_CONFIG.PAGE_NOT_FOUND_MESSAGE)));
+
+// celebrate errors handler
+router.use(errors());
 
 // connect all errors handler
 router.use((error, req, res, next) => errorHandler(error, res, next));

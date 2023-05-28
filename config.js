@@ -1,6 +1,14 @@
-// ==REG EXP==
+// ==VALIDATION==
+const VALID_CONFIG = {
+  NAME_MIN_LENGTH: 2,
+  NAME_MAX_LENGTH: 29,
+};
+
 const REG_EXP_CONFIG = {
   ID: /^[0-9a-fA-F]{24}$/,
+  EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+  URL: /^https?:\/\/(www.)?[\w-]+\.[a-z]{2,}[\w\-.~:/?#@!$&'()*+,;=]*#?$/,
+  PASSWORD: /^[a-zA-Z0-9!@#$%^&*()_+<>?/.,{};':"\\|-]{8,20}$/,
 };
 // ==PROTECT==
 const PROTECT_CONFIG = {
@@ -66,6 +74,7 @@ const SERVER_ERROR_CONFIG = {
 
 // constants export
 module.exports = {
+  VALID_CONFIG,
   REG_EXP_CONFIG,
   PROTECT_CONFIG,
   DATA_ERROR_CONFIG,
