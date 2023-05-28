@@ -1,42 +1,41 @@
 const mongoose = require('mongoose');
 const { searchDocsInDb } = require('../scripts/utils/model');
 
-// todo: разкомментировать модель
 // create movie schema
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    // required: true,
+    required: true,
   },
   director: {
     type: String,
-    // required: true,
+    required: true,
   },
   duration: {
     type: Number,
-    // required: true,
+    required: true,
   },
   year: {
     type: String,
-    // required: true,
+    required: true,
   },
   description: {
     type: String,
-    // required: true,
+    required: true,
   },
   image: {
     type: String,
-    // required: true,
+    required: true,
     validator: URL,
   },
   trailerLink: {
     type: String,
-    // required: true,
+    required: true,
     validator: URL,
   },
   thumbnail: {
     type: String,
-    // required: true,
+    required: true,
     validator: URL,
   },
   owner: {
@@ -46,15 +45,15 @@ const movieSchema = new mongoose.Schema({
   },
   movieId: {
     type: Number,
-    // required: true,
+    required: true,
   },
   nameRU: {
     type: String,
-    // required: true,
+    required: true,
   },
   nameEN: {
     type: String,
-    // required: true,
+    required: true,
   },
 }, { versionKey: false });
 
@@ -70,7 +69,7 @@ movieSchema.statics.createMovie = async function createMovie(props, userId) {
     thumbnail: props.thumbnail,
     nameEN: props.nameEN,
     nameRU: props.nameRU,
-    trailer: props.trailer,
+    trailerLink: props.trailerLink,
     image: props.image,
     description: props.description,
     year: props.year,
