@@ -31,6 +31,4 @@ app.use(cookieParser(TOKEN_CONFIG.SECRET_JWT));
 app.use(router);
 
 // start server
-app.listen(PORT, () => {
-  console.log('server is working...');
-});
+app.listen(PORT);
