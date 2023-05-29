@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { searchDocsInDb } = require('../scripts/utils/model');
+const RootNotFoundError = require('../scripts/components/RootNotFoundError');
+const { ROOT_ERROR_CONFIG } = require('../config');
 
 // create movie schema
 const movieSchema = new mongoose.Schema({
@@ -58,9 +60,12 @@ const movieSchema = new mongoose.Schema({
 }, { versionKey: false });
 
 // custom function that delete movie by id
-movieSchema.statics.deleteMovieById = async function deleteMovieById(movieId) {
+movieSchema.statics.deleteMovieById = async function deleteMovieById(movieId, userId) {
   const movie = await searchDocsInDb.call(this, movieId);
-  return this.deleteOne(movie);
+  if (movie.owner.toString() === userId) {
+    return this.deleteOne(movie);
+  }
+  throw new RootNotFoundError(ROOT_ERROR_CONFIG.DEL_MOVIE_MESSAGE);
 };
 
 movieSchema.statics.createMovie = async function createMovie(props, userId) {

@@ -67,6 +67,7 @@ const ROOT_ERROR_CONFIG = {
   ERROR_NAME: 'ROOT_ERROR',
   STATUS_CODE: 403,
   DEF_MESSAGE: 'нет прав доступа',
+  DEL_MOVIE_MESSAGE: 'данный фильм принадлежит другому пользователю',
 };
 const OBJECT_ERROR_CONFIG = {
   ERROR_NAME: 'OBJECT_ERROR',
