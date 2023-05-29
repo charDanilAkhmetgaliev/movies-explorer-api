@@ -7,3 +7,6 @@
 
 # logs
 *.log
+
+# enviroment
+.env
