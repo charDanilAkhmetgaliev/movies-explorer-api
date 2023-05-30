@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { searchDocsInDb } = require('../scripts/utils/model');
 const RootNotFoundError = require('../scripts/components/RootNotFoundError');
-const { ROOT_ERROR_CONFIG } = require('../config');
+const { ROOT_ERROR_CONFIG, REG_EXP_CONFIG } = require('../config');
 
 // create movie schema
 const movieSchema = new mongoose.Schema({
@@ -28,17 +28,23 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validator: URL,
+    validate: {
+      validator: (value) => REG_EXP_CONFIG.URL.test(value),
+    },
   },
   trailerLink: {
     type: String,
     required: true,
-    validator: URL,
+    validate: {
+      validator: (value) => REG_EXP_CONFIG.URL.test(value),
+    },
   },
   thumbnail: {
     type: String,
     required: true,
-    validator: URL,
+    validate: {
+      validator: (value) => REG_EXP_CONFIG.URL.test(value),
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

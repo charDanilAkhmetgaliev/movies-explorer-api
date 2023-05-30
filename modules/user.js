@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const AuthorizationError = require('../scripts/components/AuthorizationError');
-const { AUTH_ERROR_CONFIG, PROTECT_CONFIG } = require('../config');
+const { AUTH_ERROR_CONFIG, PROTECT_CONFIG, REG_EXP_CONFIG } = require('../config');
 const { searchDocsInDb } = require('../scripts/utils/model');
 
 // create user schema
@@ -17,7 +17,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    validator: URL,
+    validate: {
+      validator: (value) => REG_EXP_CONFIG.EMAIL.test(value),
+    },
   },
   password: {
     type: String,
