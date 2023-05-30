@@ -37,9 +37,9 @@ userSchema.statics.createUserByCredentials = async function createUserByCredenti
 
 // function update User by ID
 userSchema.statics.updateUserDataById = async function updateUserDataById(userId, { name, email }) {
-  const { currentEmail } = await searchDocsInDb.call(this, userId);
+  const { email: currentEmail } = await searchDocsInDb.call(this, userId);
   return this.findOneAndUpdate(
-    { currentEmail },
+    { email: currentEmail },
     { name, email },
     { new: true, runValidators: true },
   );
