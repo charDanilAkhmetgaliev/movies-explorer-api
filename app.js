@@ -4,14 +4,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
-const { errors } = require('celebrate');
 const router = require('./routes/index');
-const { TOKEN_CONFIG, OBJECT_ERROR_CONFIG } = require('./config');
+const { TOKEN_CONFIG } = require('./config');
 const limiter = require('./middlewares/limiter');
 const corsVerification = require('./middlewares/cors');
-const ObjectNotFoundError = require('./scripts/components/ObjectNotFoundError');
-const { errorHandler } = require('./scripts/utils/error');
-const { errorLogger, requestLogger } = require('./middlewares/logger');
 
 // create server
 const app = express();

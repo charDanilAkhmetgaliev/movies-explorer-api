@@ -1,7 +1,7 @@
 // ==VALIDATION==
 const VALID_CONFIG = {
   NAME_MIN_LENGTH: 2,
-  NAME_MAX_LENGTH: 29,
+  NAME_MAX_LENGTH: 30,
 };
 
 const REG_EXP_CONFIG = {

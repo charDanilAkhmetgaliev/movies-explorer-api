@@ -24,7 +24,7 @@ const createUserScheme = validScheme({
       .max(VALID_CONFIG.NAME_MAX_LENGTH)
       .required(),
     email: regExpRequired(REG_EXP_CONFIG.EMAIL),
-    password: regExpRequired(REG_EXP_CONFIG.PASSWORD),
+    password: stringRequired,
   }),
 });
 
@@ -32,7 +32,7 @@ const createUserScheme = validScheme({
 const loginUserScheme = validScheme({
   body: joiObject({
     email: regExpRequired(REG_EXP_CONFIG.EMAIL),
-    password: regExpRequired(REG_EXP_CONFIG.PASSWORD),
+    password: stringRequired,
   }),
 });
 
