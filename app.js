@@ -31,27 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(TOKEN_CONFIG.SECRET_JWT));
 
-// connect request logger
-router.use(requestLogger);
-
 // connect main router
 app.use('/api', router);
-
-// not found router handler
-app.use((
-  req,
-  res,
-  next,
-) => next(new ObjectNotFoundError(OBJECT_ERROR_CONFIG.PAGE_NOT_FOUND_MESSAGE)));
-
-// connect errors logger
-router.use(errorLogger);
-
-// celebrate errors handler
-router.use(errors());
-
-// connect all errors handler
-app.use((error, req, res, next) => errorHandler(error, res, next));
 
 // start server
 app.listen(PORT);
