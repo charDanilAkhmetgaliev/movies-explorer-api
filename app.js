@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const router = require('./routes/index');
-const { TOKEN_CONFIG } = require('./config');
+const { TOKEN_CONFIG, MONGO_DB_CONFIG } = require('./config');
 const limiter = require('./middlewares/limiter');
 const corsVerification = require('./middlewares/cors');
 
@@ -15,7 +15,7 @@ const app = express();
 const { PORT = 3000 } = process.env;
 
 // connect to mongo data base
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb');
+mongoose.connect(MONGO_DB_CONFIG.URL);
 
 // connect protect utilities
 app.use(corsVerification);

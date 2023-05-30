@@ -1,9 +1,12 @@
+// ==DATA BASE==
+const MONGO_DB_CONFIG = {
+  URL: (process.env.NODE_ENV === 'production') ? process.env.DB_URL : 'mongodb://127.0.0.1:27017/bitfilmsdb',
+};
 // ==VALIDATION==
 const VALID_CONFIG = {
   NAME_MIN_LENGTH: 2,
   NAME_MAX_LENGTH: 30,
 };
-
 const REG_EXP_CONFIG = {
   ID: /^[0-9a-fA-F]{24}$/,
   EMAIL: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
@@ -105,4 +108,5 @@ module.exports = {
   COOKIE_CONFIG,
   LIMITER_CONFIG,
   CORS_CONFIG,
+  MONGO_DB_CONFIG,
 };
