@@ -2,11 +2,10 @@
 const Movie = require('../modules/movie');
 const { responseSandler } = require('../scripts/utils/controller');
 const { MOVIES_CONTROL_CONFIG } = require('../config');
-const { searchDocsInDb } = require('../scripts/utils/model');
 
 // GET movies route controller
 module.exports.getSavedMovies = (req, res, next) => responseSandler(
-  () => searchDocsInDb.call(Movie, 'all', { popProps: ['owner'] }),
+  () => Movie.find({ owner: req.user._id }).populate('owner'),
   res,
   next,
 );
