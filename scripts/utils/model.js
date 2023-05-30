@@ -31,7 +31,7 @@ async function searchDocsInDb(key, options = {}) {
   if (document) {
     return document;
   }
-  throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE(key));
+  throw new ObjectNotFoundError(OBJECT_ERROR_CONFIG.MESSAGE);
 }
 
 module.exports = {

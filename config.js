@@ -74,7 +74,7 @@ const OBJECT_ERROR_CONFIG = {
   STATUS_CODE: 404,
   DEF_MESSAGE: 'объект не найден',
   PAGE_NOT_FOUND_MESSAGE: 'страница не найдена',
-  MESSAGE: (key) => `объект с ключом: ${key} не найден`,
+  MESSAGE: 'объект не найден',
 };
 const DUPLICATE_ERROR_CONFIG = {
   ERROR_NAME: 'DUPLICATE_ERROR',
